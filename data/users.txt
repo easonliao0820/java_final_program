@@ -1,4 +1,4 @@
-Student|student1|password|王小明|E001;E004;E005
+Student|student1|password|王小明|E001;E004;E005;E002
 Student|student2|password|李婷婷|E003
 Organizer|admin|admin|系學會會長|資訊工程系學會
 Organizer|organizer1|password|陳老師|課外活動指導組
