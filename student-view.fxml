@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="850.0" spacing="15.0" style="-fx-background-color: #f5f7fa; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentController">
+   <children>
+      <!-- Top Status Bar -->
+      <HBox alignment="CENTER_LEFT" style="-fx-background-color: transparent;">
+         <children>
+            <Label fx:id="welcomeLabel" text="學生您好：王小明 (student1)，歡迎使用本系統！" textFill="#2c3e50" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Microsoft JhengHei Bold" size="18.0" />
+               </font>
+            </Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="安全登出">
+               <font>
+                  <Font name="Microsoft JhengHei" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      
+      <!-- Main Content Split Pane -->
+      <SplitPane dividerPositions="0.6" style="-fx-background-color: transparent; -fx-box-border: transparent;" VBox.vgrow="ALWAYS">
+        <items>
+          <!-- Left side: Table list, Search, and Filters -->
+          <VBox spacing="10.0" style="-fx-padding: 0 10 0 0;">
+               <children>
+                  <!-- Filter TitledPane -->
+                  <VBox spacing="8.0" style="-fx-border-color: #dcdde1; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 10;">
+                     <children>
+                        <!-- Selection Radios and Keyword Search (Section 6 Advanced features) -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                           <children>
+                              <Label text="篩選範圍：" textFill="#7f8c8d">
+                                 <font>
+                                    <Font name="Microsoft JhengHei Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="viewAllRadio" mnemonicParsing="false" selected="true" text="顯示所有活動">
+                                 <font>
+                                    <Font name="Microsoft JhengHei" size="13.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="viewGroup" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="viewRegisteredRadio" mnemonicParsing="false" text="僅顯示已報名" toggleGroup="$viewGroup">
+                                 <font>
+                                    <Font name="Microsoft JhengHei" size="13.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </HBox>
+                        
+                        <Separator />
+                        
+                        <!-- Search Bar -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="關鍵字搜尋：" textFill="#7f8c8d">
+                                 <font>
+                                    <Font name="Microsoft JhengHei Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="searchField" promptText="搜尋活動主題或地點..." style="-fx-pref-height: 28;" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Microsoft JhengHei" size="12.5" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  
+                  <!-- TableView -->
+                  <TableView fx:id="eventTable" style="-fx-background-color: white; -fx-border-color: #dcdde1;" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="idCol" prefWidth="80.0" text="活動代碼" />
+                      <TableColumn fx:id="titleCol" prefWidth="130.0" text="活動名稱" />
+                      <TableColumn fx:id="locationCol" prefWidth="110.0" text="活動地點" />
+                      <TableColumn fx:id="dateCol" prefWidth="120.0" text="舉辦日期" />
+                      <TableColumn fx:id="capacityCol" prefWidth="75.0" text="名額狀態" />
+                      <TableColumn fx:id="statusCol" prefWidth="75.0" text="報名狀態" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            
+          <!-- Right side: Details and Action buttons -->
+          <VBox spacing="15.0" style="-fx-padding: 0 0 0 10;">
+               <children>
+                  <!-- Details BorderPane -->
+                  <VBox spacing="8.0" style="-fx-border-color: #dcdde1; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 12;" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="活動詳細資訊" textFill="#2c3e50">
+                           <font>
+                              <Font name="Microsoft JhengHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="descArea" editable="false" style="-fx-font-family: 'Microsoft JhengHei'; -fx-font-size: 13;" wrapText="true" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Button Panel -->
+                  <VBox spacing="10.0">
+                     <children>
+                        <Button fx:id="registerBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRegisterEvent" prefHeight="40.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="立即報名此活動">
+                           <font>
+                              <Font name="Microsoft JhengHei Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="cancelBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCancelRegistration" prefHeight="40.0" style="-fx-background-color: #bdc3c7; -fx-text-fill: black; -fx-cursor: hand; -fx-background-radius: 4;" text="取消報名此活動">
+                           <font>
+                              <Font name="Microsoft JhengHei Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+        </items>
+      </SplitPane>
+   </children>
+</VBox>
