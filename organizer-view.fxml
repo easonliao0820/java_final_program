@@ -4,8 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 
 <VBox prefHeight="620.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #f8dda4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
    <children>
       <!-- Top Status Bar -->
       <HBox alignment="CENTER_LEFT" style="-fx-background-color: transparent;">
@@ -31,7 +35,7 @@
           <VBox spacing="15.0" style="-fx-padding: 0 10 0 0;">
                <children>
                   <!-- TableView of Events -->
-                  <TableView fx:id="eventTable" style="-fx-background-color: white; -fx-border-color: #f9a03f;" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="eventTable" style="-fx-background-color: #fffaf0; -fx-border-color: #f9a03f;" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="idCol" prefWidth="80.0" text="活動代碼" />
                       <TableColumn fx:id="titleCol" prefWidth="130.0" text="活動名稱" />

@@ -1,0 +1,114 @@
+/* ═══════════════════════════════════════════════════
+   全域主題樣式
+   主色調：暖琥珀 #f8dda4 / 深橙 #d45113 / 橙黃 #f9a03f / 深棕 #813405
+   ═══════════════════════════════════════════════════ */
+
+/* ─── TableView 表頭 ─── */
+.table-view .column-header-background {
+    -fx-background-color: #d45113;
+}
+.table-view .filler {
+    -fx-background-color: #d45113;
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Microsoft JhengHei Bold";
+    -fx-font-size: 12.5px;
+    -fx-alignment: CENTER;
+}
+.table-row-cell:selected {
+    -fx-background-color: #f9a03f;
+    -fx-table-cell-border-color: #d45113;
+}
+.table-row-cell:selected .text {
+    -fx-fill: #813405;
+}
+.table-row-cell:hover:!selected {
+    -fx-background-color: #fdeac6;
+}
+
+/* ─── Dialog / Alert 背景 ─── */
+.dialog-pane {
+    -fx-background-color: #f8dda4;
+    -fx-border-color: #f9a03f;
+    -fx-border-width: 1.5;
+}
+.dialog-pane > .content {
+    -fx-background-color: #f8dda4;
+}
+.dialog-pane > .label,
+.dialog-pane > .content.label {
+    -fx-text-fill: #813405;
+    -fx-font-family: "Microsoft JhengHei";
+    -fx-font-size: 13px;
+}
+
+/* ─── Dialog 標題列 (setHeaderText 時顯示) ─── */
+.dialog-pane .header-panel {
+    -fx-background-color: #d45113;
+    -fx-padding: 10 15 10 15;
+}
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Microsoft JhengHei Bold";
+    -fx-font-size: 14px;
+}
+
+/* ─── Dialog 按鈕列 ─── */
+.dialog-pane .button-bar .button {
+    -fx-background-color: #f9a03f;
+    -fx-text-fill: #813405;
+    -fx-cursor: hand;
+    -fx-background-radius: 4;
+    -fx-font-family: "Microsoft JhengHei";
+    -fx-font-size: 13px;
+    -fx-padding: 6 18 6 18;
+}
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: #e8941e;
+}
+.dialog-pane .button-bar .button:default {
+    -fx-background-color: #d45113;
+    -fx-text-fill: white;
+}
+.dialog-pane .button-bar .button:default:hover {
+    -fx-background-color: #b83e0e;
+}
+
+/* ─── Dialog 內部表單元件 ─── */
+.dialog-pane .label {
+    -fx-text-fill: #813405;
+    -fx-font-family: "Microsoft JhengHei";
+}
+.dialog-pane .text-field,
+.dialog-pane .password-field {
+    -fx-background-color: #fff8ee;
+    -fx-border-color: #f9a03f;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Microsoft JhengHei";
+    -fx-font-size: 13px;
+}
+.dialog-pane .text-area .content {
+    -fx-background-color: #fff8ee;
+}
+.dialog-pane .text-area {
+    -fx-border-color: #f9a03f;
+    -fx-border-radius: 4;
+    -fx-font-family: "Microsoft JhengHei";
+    -fx-font-size: 13px;
+}
+.dialog-pane .spinner .text-field {
+    -fx-background-color: #fff8ee;
+    -fx-border-color: #f9a03f;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+.dialog-pane .radio-button {
+    -fx-text-fill: #813405;
+    -fx-font-family: "Microsoft JhengHei";
+}
+.dialog-pane .check-box {
+    -fx-text-fill: #813405;
+    -fx-font-family: "Microsoft JhengHei";
+}

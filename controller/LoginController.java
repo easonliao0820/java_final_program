@@ -138,6 +138,7 @@ public class LoginController {
 
         ButtonType registerButtonType = new ButtonType("註冊", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(registerButtonType, ButtonType.CANCEL);
+        applyTheme(dialog.getDialogPane());
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -213,11 +214,18 @@ public class LoginController {
         dialog.showAndWait();
     }
 
+    private void applyTheme(DialogPane pane) {
+        pane.getStylesheets().add(
+            getClass().getResource("/styles.css").toExternalForm()
+        );
+    }
+
     private void showAlert(AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
+        applyTheme(alert.getDialogPane());
         alert.showAndWait();
     }
 }

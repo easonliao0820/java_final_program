@@ -188,6 +188,7 @@ public class StudentController {
             "舉辦時間：" + selected.getTime()
         );
         confirm.getButtonTypes().setAll(yesBtn, noBtn);
+        applyTheme(confirm.getDialogPane());
         Optional<ButtonType> confirmResult = confirm.showAndWait();
         if (confirmResult.isEmpty() || confirmResult.get() != yesBtn) return;
 
@@ -221,6 +222,7 @@ public class StudentController {
         confirm.setTitle("確認取消報名");
         confirm.setHeaderText(null);
         confirm.setContentText("您確定要取消報名活動【" + selected.getTitle() + "】嗎？");
+        applyTheme(confirm.getDialogPane());
 
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -242,6 +244,7 @@ public class StudentController {
         confirm.setTitle("安全登出");
         confirm.setHeaderText(null);
         confirm.setContentText("您確定要登出系統嗎？");
+        applyTheme(confirm.getDialogPane());
 
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -266,11 +269,18 @@ public class StudentController {
         }
     }
 
+    private void applyTheme(DialogPane pane) {
+        pane.getStylesheets().add(
+            getClass().getResource("/styles.css").toExternalForm()
+        );
+    }
+
     private void showAlert(AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
+        applyTheme(alert.getDialogPane());
         alert.showAndWait();
     }
 }

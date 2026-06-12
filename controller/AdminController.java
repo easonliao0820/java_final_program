@@ -154,6 +154,7 @@ public class AdminController {
 
         ButtonType saveType = new ButtonType("儲存建立", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveType, ButtonType.CANCEL);
+        applyTheme(dialog.getDialogPane());
 
         GridPane grid = buildEventFormGrid(null);
         dialog.getDialogPane().setContent(grid);
@@ -190,6 +191,7 @@ public class AdminController {
                 "人數限制：" + cap + " 人"
             );
             confirm.getButtonTypes().setAll(yesBtn, noBtn);
+            applyTheme(confirm.getDialogPane());
             Optional<ButtonType> confirmResult = confirm.showAndWait();
             if (confirmResult.isEmpty() || confirmResult.get() != yesBtn) {
                 ae.consume(); return;
@@ -220,6 +222,7 @@ public class AdminController {
 
         ButtonType saveType = new ButtonType("更新修改", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveType, ButtonType.CANCEL);
+        applyTheme(dialog.getDialogPane());
 
         GridPane grid = buildEventFormGrid(selected);
         dialog.getDialogPane().setContent(grid);
@@ -276,6 +279,7 @@ public class AdminController {
         confirm.setTitle("危險動作確認");
         confirm.setHeaderText(null);
         confirm.setContentText("您確定要刪除活動【" + selected.getTitle() + "】嗎？\n這將會同步清除所有學生的報名記錄且無法復原！");
+        applyTheme(confirm.getDialogPane());
 
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -377,6 +381,7 @@ public class AdminController {
         confirm.setTitle("安全登出確認");
         confirm.setHeaderText(null);
         confirm.setContentText("您確定要安全登出主辦者後台嗎？");
+        applyTheme(confirm.getDialogPane());
 
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -401,11 +406,18 @@ public class AdminController {
         }
     }
 
+    private void applyTheme(DialogPane pane) {
+        pane.getStylesheets().add(
+            getClass().getResource("/styles.css").toExternalForm()
+        );
+    }
+
     private void showAlert(AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
+        applyTheme(alert.getDialogPane());
         alert.showAndWait();
     }
 }
