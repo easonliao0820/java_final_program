@@ -52,11 +52,15 @@ public class FileEventRepository implements IEventRepository {
                 String description  = parts[5];
                 String organizerId  = parts[6];
                 String participants = parts[7];
+                String checkedIn    = parts.length > 8 ? parts[8] : "";
 
                 Event e = new Event(id, title, location, time, capacity, description);
                 e.setTempOrganizerId(organizerId);
                 if (!participants.trim().isEmpty()) {
                     e.getTempParticipantIds().addAll(Arrays.asList(participants.split(";")));
+                }
+                if (!checkedIn.trim().isEmpty()) {
+                    e.getTempCheckedInParticipantIds().addAll(Arrays.asList(checkedIn.split(";")));
                 }
                 events.add(e);
             }
@@ -81,7 +85,8 @@ public class FileEventRepository implements IEventRepository {
                     e.getCapacity()    + "|" +
                     e.getDescription() + "|" +
                     organizerId        + "|" +
-                    String.join(";", e.getRegisteredStudentUsernames())
+                    String.join(";", e.getRegisteredStudentUsernames()) + "|" +
+                    String.join(";", e.getCheckedInStudentUsernames())
                 );
             }
         } catch (IOException ex) {

@@ -23,10 +23,12 @@ public class Event {
     private String description;
     private Organizer organizer;
     private List<Student> participants;
+    private List<Student> checkedInParticipants;
 
     /** 僅供 FileEventRepository / RelationshipResolver 使用的序列化暫存 */
     private String tempOrganizerId;
     private List<String> tempParticipantIds;
+    private List<String> tempCheckedInParticipantIds;
 
     public Event(String id, String title, String location, String time, int capacity, String description) {
         this.id = id;
@@ -37,6 +39,8 @@ public class Event {
         this.description = description;
         this.participants = new ArrayList<>();
         this.tempParticipantIds = new ArrayList<>();
+        this.checkedInParticipants = new ArrayList<>();
+        this.tempCheckedInParticipantIds = new ArrayList<>();
     }
 
     public boolean isFull() {
@@ -108,4 +112,32 @@ public class Event {
 
     public List<String> getTempParticipantIds()                 { return tempParticipantIds; }
     public void         setTempParticipantIds(List<String> ids) { this.tempParticipantIds = ids; }
+
+    public List<Student> getCheckedInParticipants() { return checkedInParticipants; }
+    public void setCheckedInParticipants(List<Student> list) { this.checkedInParticipants = list; }
+
+    public List<String> getTempCheckedInParticipantIds() { return tempCheckedInParticipantIds; }
+    public void setTempCheckedInParticipantIds(List<String> ids) { this.tempCheckedInParticipantIds = ids; }
+
+    public List<String> getCheckedInStudentUsernames() {
+        List<String> ids = new ArrayList<>();
+        for (Student s : checkedInParticipants) {
+            ids.add(s.getId());
+        }
+        return ids;
+    }
+
+    public boolean isCheckedIn(Student student) {
+        return checkedInParticipants.contains(student);
+    }
+
+    public void checkInStudent(Student student) {
+        if (participants.contains(student) && !checkedInParticipants.contains(student)) {
+            checkedInParticipants.add(student);
+        }
+    }
+
+    public void cancelCheckIn(Student student) {
+        checkedInParticipants.remove(student);
+    }
 }

@@ -122,6 +122,11 @@
                               <Font name="Microsoft JhengHei Bold" size="14.0" />
                            </font>
                         </Button>
+                        <Button fx:id="showQrBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleShowQrCode" prefHeight="40.0" style="-fx-background-color: #f9a03f; -fx-text-fill: #813405; -fx-cursor: hand; -fx-background-radius: 4;" text="顯示報到 QR Code 🔍">
+                           <font>
+                              <Font name="Microsoft JhengHei Bold" size="14.0" />
+                           </font>
+                        </Button>
                      </children>
                   </VBox>
                </children>

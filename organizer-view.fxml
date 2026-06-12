@@ -35,7 +35,7 @@
           <VBox spacing="15.0" style="-fx-padding: 0 10 0 0;">
                <children>
                   <!-- TableView of Events -->
-                  <TableView fx:id="eventTable" style="-fx-background-color: #fffaf0; -fx-border-color: #f9a03f;" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="eventTable" style="-fx-background-color: ##fffdf7; -fx-border-color: #f59e42;" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="idCol" prefWidth="80.0" text="活動代碼" />
                       <TableColumn fx:id="titleCol" prefWidth="130.0" text="活動名稱" />
@@ -106,6 +106,16 @@
                         </font>
                      </Label>
                      <ListView fx:id="studentRosterList" style="-fx-font-family: 'Microsoft JhengHei'; -fx-font-size: 13;" VBox.vgrow="ALWAYS" />
+                     <HBox spacing="10.0">
+                        <children>
+                           <Button fx:id="checkInBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleQrCheckIn" prefHeight="35.0" style="-fx-background-color: #d45113; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="輸入/掃描 QR Code 報到 🔍" HBox.hgrow="ALWAYS">
+                              <font>
+                                 <Font name="Microsoft JhengHei Bold" size="13.0" />
+                              </font>
+                           </Button>
+                        </children>
+                     </HBox>
+
                   </children>
                </VBox>
             </items>

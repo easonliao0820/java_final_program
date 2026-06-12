@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 /**
  * 主辦者控制器 (Admin Controller)
  * 依賴 DataContext（DIP），不直接耦合任何具體 Repository 實作。
@@ -58,6 +59,7 @@ public class AdminController {
     @FXML private Button editBtn;
     @FXML private Button deleteBtn;
     @FXML private Button exportCsvBtn;
+    @FXML private Button checkInBtn;
 
     /** 注入 DataContext（DIP：依賴抽象協調者） */
     public void initData(DataContext context, Organizer organizer) {
@@ -126,6 +128,58 @@ public class AdminController {
         int count = 1;
         for (Student s : students) {
             rosterItems.add(count++ + ". " + s.getName() + " (" + s.getId() + ")");
+            boolean checkedIn = ev.isCheckedIn(s);
+            rosterItems.add(count++ + ". " + s.getName() + " (" + s.getId() + ")" + (checkedIn ? " [已報到 ✓]" : " [未報到]"));
+        }
+    }
+    @FXML
+    private void handleQrCheckIn(ActionEvent event) {
+        Event selected = eventTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(AlertType.WARNING, "提示", "請先在列表選擇要辦理報到的活動！");
+            return;
+        }
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("輸入/掃描 QR Code 報到");
+        dialog.setHeaderText("請使用掃描槍或手動輸入學生端產生的報到代碼\n活動：" + selected.getTitle());
+        dialog.setContentText("報到代碼：");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String input = result.get().trim();
+            if (input.isEmpty()) return;
+            // 解析
+            String[] parts = input.split(":");
+            if (parts.length != 3 || !parts[0].equalsIgnoreCase("CHECKIN")) {
+                showAlert(AlertType.ERROR, "錯誤", "報到失敗！格式無效的 QR Code 報到碼。");
+                return;
+            }
+            String eventId = parts[1];
+            String studentId = parts[2];
+            if (!eventId.equalsIgnoreCase(selected.getId())) {
+                showAlert(AlertType.WARNING, "活動不符", "此 QR Code 為活動代碼【" + eventId + "】的報到憑證，\n與當前選取的活動【" + selected.getId() + "】不符！");
+                return;
+            }
+            // 尋找學員
+            Student targetStudent = null;
+            for (Student s : selected.getParticipants()) {
+                if (s.getId().equalsIgnoreCase(studentId)) {
+                    targetStudent = s;
+                    break;
+                }
+            }
+            if (targetStudent == null) {
+                showAlert(AlertType.ERROR, "學員未報名", "報到失敗！此學員（" + studentId + "）尚未報名此活動。");
+                return;
+            }
+            if (selected.isCheckedIn(targetStudent)) {
+                showAlert(AlertType.INFORMATION, "已報到", "學員【" + targetStudent.getName() + "】先前已完成報到囉！");
+                return;
+            }
+            // 執行報到
+            selected.checkInStudent(targetStudent);
+            saveAllData();
+            updateRosterList(selected);
+            showAlert(AlertType.INFORMATION, "報到成功", "學員【" + targetStudent.getName() + "】（" + studentId + "）報到成功！");
         }
     }
 
