@@ -21,6 +21,7 @@ public class RelationshipResolver implements IRelationshipResolver {
         for (Event e : events) {
             resolveOrganizer(e, users);
             resolveParticipants(e, users);
+            resolveCheckedInParticipants(e, users);
         }
     }
 
@@ -31,6 +32,7 @@ public class RelationshipResolver implements IRelationshipResolver {
         }
         for (Event e : events) {
             e.getParticipants().clear();
+            e.getCheckedInParticipants().clear();
             e.setOrganizer(null);
         }
     }
@@ -58,6 +60,21 @@ public class RelationshipResolver implements IRelationshipResolver {
                 if (u instanceof Student && u.getId().equals(pid)) {
                     e.getParticipants().add((Student) u);
                     ((Student) u).getRegisteredEvents().add(e);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void resolveCheckedInParticipants(Event e, List<User> users) {
+        List<String> checkIds = e.getTempCheckedInParticipantIds();
+        if (checkIds == null) return;
+
+        for (String cid : checkIds) {
+            if (cid.trim().isEmpty()) continue;
+            for (User u : users) {
+                if (u instanceof Student && u.getId().equals(cid)) {
+                    e.getCheckedInParticipants().add((Student) u);
                     break;
                 }
             }

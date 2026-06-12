@@ -24,6 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import model.QRCodeGenerator;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+
 /**
  * 學生控制器 (Student Controller)
  * 依賴 DataContext（DIP），不直接耦合任何具體 Repository 實作。
@@ -53,6 +60,7 @@ public class StudentController {
     @FXML private TextArea descArea;
     @FXML private Button   registerBtn;
     @FXML private Button   cancelBtn;
+    @FXML private Button   showQrBtn;
 
     /** 注入 DataContext（DIP：依賴抽象協調者） */
     public void initData(DataContext context, Student student) {
@@ -129,12 +137,52 @@ public class StudentController {
         if (selectedEvent == null) {
             registerBtn.setDisable(true);
             cancelBtn.setDisable(true);
+            showQrBtn.setDisable(true);
         } else {
             boolean isRegistered = currentStudent.getRegisteredEvents().contains(selectedEvent);
             boolean isFull = selectedEvent.isFull();
             registerBtn.setDisable(isRegistered || isFull);
             cancelBtn.setDisable(!isRegistered);
+            showQrBtn.setDisable(!isRegistered);
         }
+    }
+    @FXML
+    private void handleShowQrCode(ActionEvent event) {
+        Event selected = eventTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(AlertType.WARNING, "提示", "請先在左邊列表中選取活動！");
+            return;
+        }
+        boolean isRegistered = currentStudent.getRegisteredEvents().contains(selected);
+        if (!isRegistered) {
+            showAlert(AlertType.WARNING, "提示", "您尚未報名此活動，無法生成報到 QR Code！");
+            return;
+        }
+        String checkInCode = "CHECKIN:" + selected.getId() + ":" + currentStudent.getId();
+        // 產生擬真 QR Code (180x180 像素)
+        Image qrImage = QRCodeGenerator.generateQRCodeImage(checkInCode, 180, 180);
+        // 建立對話框
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("活動報到 QR Code");
+        dialog.setHeaderText("出示此 QR Code 給活動主辦者即可完成報到");
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        // 佈局
+        VBox vbox = new VBox(15);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(20));
+        vbox.setStyle("-fx-background-color: #fffaf0; -fx-alignment: center;");
+        // QR Code 圖像顯示
+        ImageView imageView = new ImageView(qrImage);
+        imageView.setFitWidth(180);
+        imageView.setFitHeight(180);
+        // 文字說明
+        Label infoLabel = new Label("活動名稱：" + selected.getTitle());
+        infoLabel.setStyle("-fx-font-family: 'Microsoft JhengHei'; -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #813405;");
+        Label codeLabel = new Label("報到憑證：" + checkInCode);
+        codeLabel.setStyle("-fx-font-family: 'Microsoft JhengHei'; -fx-font-size: 12; -fx-text-fill: #d45113;");
+        vbox.getChildren().addAll(imageView, infoLabel, codeLabel);
+        dialog.getDialogPane().setContent(vbox);
+        dialog.showAndWait();
     }
 
     private void refreshTableData() {
