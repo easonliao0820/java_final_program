@@ -177,17 +177,19 @@ public class StudentController {
             showAlert(AlertType.WARNING, "提示", "請先在左邊列表中選取欲報名的活動！");
             return;
         }
+        ButtonType yesBtn = new ButtonType("是，確認報名", ButtonBar.ButtonData.YES);
+        ButtonType noBtn  = new ButtonType("否，取消",     ButtonBar.ButtonData.NO);
         Alert confirm = new Alert(AlertType.CONFIRMATION);
         confirm.setTitle("確認報名");
-        confirm.setHeaderText(null);
+        confirm.setHeaderText("您確定要加入這個活動嗎？");
         confirm.setContentText(
-            "確定要報名以下活動嗎？\n\n" +
             "活動名稱：" + selected.getTitle() + "\n" +
             "活動地點：" + selected.getLocation() + "\n" +
             "舉辦時間：" + selected.getTime()
         );
+        confirm.getButtonTypes().setAll(yesBtn, noBtn);
         Optional<ButtonType> confirmResult = confirm.showAndWait();
-        if (confirmResult.isEmpty() || confirmResult.get() != ButtonType.OK) return;
+        if (confirmResult.isEmpty() || confirmResult.get() != yesBtn) return;
 
         try {
             selected.registerStudent(currentStudent);

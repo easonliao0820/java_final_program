@@ -178,18 +178,20 @@ public class AdminController {
                 ae.consume(); return;
             }
 
+            ButtonType yesBtn = new ButtonType("是，確認建立", ButtonBar.ButtonData.YES);
+            ButtonType noBtn  = new ButtonType("否，返回修改", ButtonBar.ButtonData.NO);
             Alert confirm = new Alert(AlertType.CONFIRMATION);
             confirm.setTitle("確認建立活動");
-            confirm.setHeaderText(null);
+            confirm.setHeaderText("您確定要建立這個活動嗎？");
             confirm.setContentText(
-                "確定要建立以下活動嗎？\n\n" +
                 "活動名稱：" + title + "\n" +
                 "活動地點：" + location + "\n" +
                 "舉辦時間：" + date + "\n" +
                 "人數限制：" + cap + " 人"
             );
+            confirm.getButtonTypes().setAll(yesBtn, noBtn);
             Optional<ButtonType> confirmResult = confirm.showAndWait();
-            if (confirmResult.isEmpty() || confirmResult.get() != ButtonType.OK) {
+            if (confirmResult.isEmpty() || confirmResult.get() != yesBtn) {
                 ae.consume(); return;
             }
 
