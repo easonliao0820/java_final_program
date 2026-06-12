@@ -164,6 +164,18 @@ public class StudentController {
             showAlert(AlertType.WARNING, "提示", "請先在左邊列表中選取欲報名的活動！");
             return;
         }
+        Alert confirm = new Alert(AlertType.CONFIRMATION);
+        confirm.setTitle("確認報名");
+        confirm.setHeaderText(null);
+        confirm.setContentText(
+            "確定要報名以下活動嗎？\n\n" +
+            "活動名稱：" + selected.getTitle() + "\n" +
+            "活動地點：" + selected.getLocation() + "\n" +
+            "舉辦時間：" + selected.getTime()
+        );
+        Optional<ButtonType> confirmResult = confirm.showAndWait();
+        if (confirmResult.isEmpty() || confirmResult.get() != ButtonType.OK) return;
+
         try {
             selected.registerStudent(currentStudent);
             saveAllData();

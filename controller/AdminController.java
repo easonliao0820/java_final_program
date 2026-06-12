@@ -178,6 +178,21 @@ public class AdminController {
                 ae.consume(); return;
             }
 
+            Alert confirm = new Alert(AlertType.CONFIRMATION);
+            confirm.setTitle("確認建立活動");
+            confirm.setHeaderText(null);
+            confirm.setContentText(
+                "確定要建立以下活動嗎？\n\n" +
+                "活動名稱：" + title + "\n" +
+                "活動地點：" + location + "\n" +
+                "舉辦時間：" + date + "\n" +
+                "人數限制：" + cap + " 人"
+            );
+            Optional<ButtonType> confirmResult = confirm.showAndWait();
+            if (confirmResult.isEmpty() || confirmResult.get() != ButtonType.OK) {
+                ae.consume(); return;
+            }
+
             Event newEv = new Event(generateNextEventId(), title, location, date, cap, desc);
             currentOrganizer.createEvent(newEv);
             allEvents.add(newEv);
