@@ -11,7 +11,7 @@
     -fx-background-color: #d45113;
 }
 .table-view .column-header .label {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-family: "Microsoft JhengHei Bold";
     -fx-font-size: 12.5px;
     -fx-alignment: CENTER;
