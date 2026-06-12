@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="620.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #f5f7fa; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<VBox prefHeight="620.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #f8dda4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <!-- Top Status Bar -->
       <HBox alignment="CENTER_LEFT" style="-fx-background-color: transparent;">
          <children>
-            <Label fx:id="welcomeLabel" text="主辦者：已登入為 系學會會長 (資訊工程系學會)" textFill="#2c3e50" HBox.hgrow="ALWAYS">
+            <Label fx:id="welcomeLabel" text="主辦者：已登入為 系學會會長 (資訊工程系學會)" textFill="#813405" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Microsoft JhengHei Bold" size="18.0" />
                </font>
             </Label>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="安全登出">
+            <Button mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #d45113; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="安全登出">
                <font>
                   <Font name="Microsoft JhengHei" size="13.0" />
                </font>
@@ -31,7 +31,7 @@
           <VBox spacing="15.0" style="-fx-padding: 0 10 0 0;">
                <children>
                   <!-- TableView of Events -->
-                  <TableView fx:id="eventTable" style="-fx-background-color: white; -fx-border-color: #dcdde1;" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="eventTable" style="-fx-background-color: white; -fx-border-color: #f9a03f;" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="idCol" prefWidth="80.0" text="活動代碼" />
                       <TableColumn fx:id="titleCol" prefWidth="130.0" text="活動名稱" />
@@ -53,22 +53,22 @@
                         <RowConstraints minHeight="40.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="addBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCreateEvent" prefHeight="40.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="新增活動 ✚" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Button fx:id="addBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCreateEvent" prefHeight="40.0" style="-fx-background-color: #d45113; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="新增活動 ✚" GridPane.columnIndex="0" GridPane.rowIndex="0">
                            <font>
                               <Font name="Microsoft JhengHei Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="editBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditEvent" prefHeight="40.0" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="修改活動 📝" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Button fx:id="editBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditEvent" prefHeight="40.0" style="-fx-background-color: #f9a03f; -fx-text-fill: #813405; -fx-cursor: hand; -fx-background-radius: 4;" text="修改活動 📝" GridPane.columnIndex="1" GridPane.rowIndex="0">
                            <font>
                               <Font name="Microsoft JhengHei Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="deleteBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="40.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="刪除活動 🗑" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Button fx:id="deleteBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="40.0" style="-fx-background-color: #962d2d; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;" text="刪除活動 🗑" GridPane.columnIndex="0" GridPane.rowIndex="1">
                            <font>
                               <Font name="Microsoft JhengHei Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="exportCsvBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleExportCsv" prefHeight="40.0" style="-fx-background-color: #f1c40f; -fx-text-fill: black; -fx-cursor: hand; -fx-background-radius: 4;" text="匯出名冊 📤 (CSV)" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="exportCsvBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleExportCsv" prefHeight="40.0" style="-fx-background-color: #e5ccb3; -fx-text-fill: #813405; -fx-cursor: hand; -fx-background-radius: 4;" text="匯出名冊 📤 (CSV)" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Microsoft JhengHei Bold" size="13.0" />
                            </font>
@@ -82,9 +82,9 @@
           <SplitPane dividerPositions="0.45" orientation="VERTICAL" style="-fx-background-color: transparent; -fx-box-border: transparent;" VBox.vgrow="ALWAYS">
             <items>
                <!-- Upper Block: Event Description -->
-               <VBox spacing="5.0" style="-fx-border-color: #dcdde1; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 10;">
+               <VBox spacing="5.0" style="-fx-border-color: #f9a03f; -fx-border-radius: 5; -fx-background-color: #fffaf0; -fx-padding: 10;">
                   <children>
-                     <Label text="活動詳情：" textFill="#2c3e50">
+                     <Label text="活動詳情：" textFill="#813405">
                         <font>
                            <Font name="Microsoft JhengHei Bold" size="14.0" />
                         </font>
@@ -94,9 +94,9 @@
                </VBox>
                
                <!-- Lower Block: Student Registered list -->
-               <VBox spacing="5.0" style="-fx-border-color: #dcdde1; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 10;">
+               <VBox spacing="5.0" style="-fx-border-color: #f9a03f; -fx-border-radius: 5; -fx-background-color: #fffaf0; -fx-padding: 10;">
                   <children>
-                     <Label text="已報名學生名單：" textFill="#2c3e50">
+                     <Label text="已報名學生名單：" textFill="#813405">
                         <font>
                            <Font name="Microsoft JhengHei Bold" size="14.0" />
                         </font>
