@@ -121,7 +121,20 @@ public class StudentController {
             } else {
                 descArea.setText("請選擇左側活動以檢視詳細介紹與內容。");
             }
+            updateButtonStates(newVal);
         });
+    }
+
+    private void updateButtonStates(Event selectedEvent) {
+        if (selectedEvent == null) {
+            registerBtn.setDisable(true);
+            cancelBtn.setDisable(true);
+        } else {
+            boolean isRegistered = currentStudent.getRegisteredEvents().contains(selectedEvent);
+            boolean isFull = selectedEvent.isFull();
+            registerBtn.setDisable(isRegistered || isFull);
+            cancelBtn.setDisable(!isRegistered);
+        }
     }
 
     private void refreshTableData() {
