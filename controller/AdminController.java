@@ -127,9 +127,13 @@ public class AdminController {
         }
         int count = 1;
         for (Student s : students) {
-            rosterItems.add(count++ + ". " + s.getName() + " (" + s.getId() + ")");
             boolean checkedIn = ev.isCheckedIn(s);
-            rosterItems.add(count++ + ". " + s.getName() + " (" + s.getId() + ")" + (checkedIn ? " [已報到 ✓]" : " [未報到]"));
+
+            rosterItems.add(
+                    count++ + ". " +
+                            s.getName() + " (" + s.getId() + ") " +
+                            (checkedIn ? "[已報到 ✓]" : "[未報到]")
+            );
         }
     }
     @FXML

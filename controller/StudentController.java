@@ -30,6 +30,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+
 
 /**
  * 學生控制器 (Student Controller)
@@ -146,43 +148,49 @@ public class StudentController {
             showQrBtn.setDisable(!isRegistered);
         }
     }
+    private void showQRCodeWindow(String studentId, String eventId) {
+        String qrText = "CHECKIN:" + eventId + ":" + studentId;
+
+        Image qrImage = QRCodeGenerator.generateQRCodeImage(qrText, 280, 280);
+
+        ImageView imageView = new ImageView(qrImage);
+        imageView.setFitWidth(280);
+        imageView.setFitHeight(280);
+
+        Label titleLabel = new Label("活動報到 QR Code");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #8b3f00;");
+
+        Label infoLabel = new Label("請於活動現場出示此 QR Code");
+        infoLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #5c3b16;");
+
+        Label codeLabel = new Label("報到憑證：" + qrText);
+        codeLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #ef4b00;");
+
+        VBox root = new VBox(12, titleLabel, infoLabel, imageView, codeLabel);
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(20));
+        root.setStyle("-fx-background-color: #fff3d6;");
+
+        Stage stage = new Stage();
+        stage.setTitle("活動報到 QR Code");
+        stage.setScene(new Scene(root, 360, 430));
+        stage.show();
+    }
     @FXML
     private void handleShowQrCode(ActionEvent event) {
         Event selected = eventTable.getSelectionModel().getSelectedItem();
+
         if (selected == null) {
-            showAlert(AlertType.WARNING, "提示", "請先在左邊列表中選取活動！");
+            showAlert(AlertType.WARNING, "提示", "請先選擇活動！");
             return;
         }
-        boolean isRegistered = currentStudent.getRegisteredEvents().contains(selected);
-        if (!isRegistered) {
-            showAlert(AlertType.WARNING, "提示", "您尚未報名此活動，無法生成報到 QR Code！");
+
+        if (!currentStudent.getRegisteredEvents().contains(selected)) {
+            showAlert(AlertType.WARNING, "無法顯示", "您尚未報名此活動，無法產生 QR Code！");
             return;
         }
-        String checkInCode = "CHECKIN:" + selected.getId() + ":" + currentStudent.getId();
-        // 產生擬真 QR Code (180x180 像素)
-        Image qrImage = QRCodeGenerator.generateQRCodeImage(checkInCode, 180, 180);
-        // 建立對話框
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("活動報到 QR Code");
-        dialog.setHeaderText("出示此 QR Code 給活動主辦者即可完成報到");
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        // 佈局
-        VBox vbox = new VBox(15);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setPadding(new Insets(20));
-        vbox.setStyle("-fx-background-color: #fffaf0; -fx-alignment: center;");
-        // QR Code 圖像顯示
-        ImageView imageView = new ImageView(qrImage);
-        imageView.setFitWidth(180);
-        imageView.setFitHeight(180);
-        // 文字說明
-        Label infoLabel = new Label("活動名稱：" + selected.getTitle());
-        infoLabel.setStyle("-fx-font-family: 'Microsoft JhengHei'; -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #813405;");
-        Label codeLabel = new Label("報到憑證：" + checkInCode);
-        codeLabel.setStyle("-fx-font-family: 'Microsoft JhengHei'; -fx-font-size: 12; -fx-text-fill: #d45113;");
-        vbox.getChildren().addAll(imageView, infoLabel, codeLabel);
-        dialog.getDialogPane().setContent(vbox);
-        dialog.showAndWait();
+
+        showQRCodeWindow(currentStudent.getId(), selected.getId());
     }
 
     private void refreshTableData() {
